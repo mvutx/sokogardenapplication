@@ -5,74 +5,111 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
+import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // 🔐 AUTO LOGIN PROTECTION
+        val sessionCheck = SessionManager(this)
+        if (!sessionCheck.isLoggedIn()) {
+            startActivity(Intent(this, Signin::class.java))
+            finish()
+            return
+        }
+
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-//        find the buttons  by use of their ids
+
+        // UI ELEMENTS
         val signupButton = findViewById<Button>(R.id.signupBtn)
         val signinButton = findViewById<Button>(R.id.signinBtn)
+        val welcomeUser = findViewById<TextView>(R.id.welcomeUser)
+
+        val recyclerview = findViewById<RecyclerView>(R.id.recyclerview)
+        val progressbar = findViewById<ProgressBar>(R.id.progressbar)
+
+        val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNav)
 
         val session = SessionManager(this)
 
-// If logged in → change Signup button to Logout
+        // 🔐 GET USER DATA
+        val prefs = getSharedPreferences("user_session", MODE_PRIVATE)
+        val username = prefs.getString("username", "Guest")
+
+        // 🎯 UI STATE
         if (session.isLoggedIn()) {
-            signupButton.text = "🚪 Logout"
+
+            welcomeUser.text = "👋 Hello, $username"
+
+            signupButton.visibility = View.GONE
+            signinButton.visibility = View.GONE
+
+        } else {
+            welcomeUser.text = "Welcome 👋"
         }
-//        create an intent to the two activities
+
+        // 👤 SIGNUP
         signupButton.setOnClickListener {
-            val intent = Intent(applicationContext, Signup::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, Signup::class.java))
         }
-        //        =====================================
+
+        // 🔐 SIGNIN
         signinButton.setOnClickListener {
-            val intent = Intent(applicationContext, Signin::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, Signin::class.java))
         }
-        signupButton.setOnClickListener {
 
-            val session = SessionManager(this)
+        // 🌐 LOAD PRODUCTS
+        val url = "https://kbenkamotho.alwaysdata.net/api/get_products"
+        val helper = ApiHelper(applicationContext)
+        helper.loadProducts(url, recyclerview, progressbar)
 
-            if (session.isLoggedIn()) {
-                // LOGOUT
-                session.logout()
+        // =========================================
+        // 🔥 BOTTOM NAVIGATION
+        // =========================================
 
-                val intent = Intent(this, Signin::class.java)
-                startActivity(intent)
-                finish()
+        bottomNav.setOnItemSelectedListener { item ->
 
-            } else {
-                // NORMAL SIGNUP FLOW
-                val intent = Intent(this, Signup::class.java)
-                startActivity(intent)
+            when (item.itemId) {
+
+                R.id.nav_home -> {
+                    Toast.makeText(this, "Home", Toast.LENGTH_SHORT).show()
+                    true
+                }
+
+                R.id.nav_profile -> {
+                    startActivity(Intent(this, ProfileActivity::class.java))
+                    true
+                }
+
+                R.id.nav_logout -> {
+                    session.logout()
+                    prefs.edit().clear().apply()
+
+                    Toast.makeText(this, "Logged out", Toast.LENGTH_SHORT).show()
+
+                    startActivity(Intent(this, Signin::class.java))
+                    finish()
+                    true
+                }
+
+                else -> false
             }
         }
-        if (session.isLoggedIn()) {
-            signinButton.visibility = View.GONE
-        }
-
-//        find the recyclerview and the progressbar by use of their ids
-        val recyclerview = findViewById<RecyclerView>(R.id.recyclerview)
-        val progressbar = findViewById<ProgressBar>(R.id.progressbar)
-//         specify the API url for fetching the products (alwaysdata)
-        val url = "https://kbenkamotho.alwaysdata.net/api/get_products"
-
-//        import the helper class
-        val helper = ApiHelper(applicationContext)
-
-//        inside the helper class access the function loadproducts
-        helper.loadProducts(url, recyclerview, progressbar)
     }
 }

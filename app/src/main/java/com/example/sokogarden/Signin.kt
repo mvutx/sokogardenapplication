@@ -15,6 +15,16 @@ class Signin : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // 🔥 AUTO LOGIN (ADDED - does not remove anything)
+        val sessionCheck = SessionManager(this)
+        if (sessionCheck.isLoggedIn()) {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+            return
+        }
+
         enableEdgeToEdge()
         setContentView(R.layout.activity_signin)
 

@@ -8,6 +8,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
+    android:paddingBottom="60dp"
     tools:context=".MainActivity">
 
     <!-- App Title -->
@@ -21,7 +22,19 @@
         android:textColor="#FFFFFF"
         android:background="#1E3A8A"
         android:padding="14dp"
-        android:layout_marginBottom="20dp"/>
+        android:layout_marginBottom="10dp"/>
+
+    <!-- 👋 Welcome User -->
+    <TextView
+        android:id="@+id/welcomeUser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Welcome 👋"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:textColor="#1E3A8A"
+        android:layout_marginBottom="15dp"/>
 
     <!-- Buttons Section -->
     <LinearLayout
@@ -30,28 +43,26 @@
         android:orientation="horizontal"
         android:gravity="center">
 
-        <!-- Signup Column -->
+        <!-- Signup -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:layout_marginEnd="10dp">
+            android:layout_marginEnd="8dp">
 
             <Button
                 android:id="@+id/signupBtn"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:text="👤 Signup"
-                android:textSize="16sp"
+                android:textSize="15sp"
                 android:textAllCaps="false"
                 android:textColor="#FFFFFF"
                 android:backgroundTint="#3B82F6"/>
-
-
         </LinearLayout>
 
-        <!-- Signin Column -->
+        <!-- Signin -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -63,12 +74,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:text="🔐 Signin"
-                android:textSize="16sp"
+                android:textSize="15sp"
                 android:textAllCaps="false"
                 android:textColor="#FFFFFF"
                 android:backgroundTint="#1E3A8A"/>
-
-
         </LinearLayout>
 
     </LinearLayout>
@@ -98,7 +107,16 @@
             android:layout_height="match_parent"
             android:padding="10dp"
             tools:listitem="@layout/single_item"/>
-
     </androidx.cardview.widget.CardView>
+
+    <!-- ✅ BOTTOM NAVIGATION -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        app:itemIconTint="#1E3A8A"
+        app:itemTextColor="#1E3A8A"
+        app:menu="@menu/bottom_nav_menu"/>
 
 </LinearLayout>
