@@ -1,13 +1,10 @@
 package com.example.sokogarden
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.text.InputType
-import android.view.View
-import android.widget.*
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -15,7 +12,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.loopj.android.http.RequestParams
 
 class Signin : AppCompatActivity() {
-    @SuppressLint("MissingInflatedId")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -27,29 +24,11 @@ class Signin : AppCompatActivity() {
             insets
         }
 
-        // Existing views
+        // UI elements
         val email = findViewById<EditText>(R.id.email)
         val password = findViewById<EditText>(R.id.password)
         val signinButton = findViewById<Button>(R.id.signinBtn)
         val signuptxt = findViewById<TextView>(R.id.signuptxt)
-
-        // NEW views (from XML we added)
-        val toggle = findViewById<TextView>(R.id.togglePassword)
-        val loader = findViewById<ProgressBar>(R.id.loading)
-        val emailError = findViewById<TextView>(R.id.emailError)
-        val passError = findViewById<TextView>(R.id.passwordError)
-
-        // 👁️ Show / Hide password
-        toggle.setOnClickListener {
-            if (password.inputType == (InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD)) {
-                password.inputType =
-                    InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-            } else {
-                password.inputType =
-                    InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-            }
-            password.setSelection(password.text.length)
-        }
 
         // Navigate to Signup
         signuptxt.setOnClickListener {
@@ -57,53 +36,33 @@ class Signin : AppCompatActivity() {
             startActivity(intent)
         }
 
-        // Signin button logic
+        // SIGNIN BUTTON CLICK
         signinButton.setOnClickListener {
 
-            // Hide errors first
-            emailError.visibility = View.GONE
-            passError.visibility = View.GONE
-
-            val emailTxt = email.text.toString()
-            val passTxt = password.text.toString()
-
-            var valid = true
-
-            // ❗ Validation
-            if (emailTxt.isEmpty()) {
-                emailError.visibility = View.VISIBLE
-                valid = false
-            }
-
-            if (passTxt.isEmpty()) {
-                passError.visibility = View.VISIBLE
-                valid = false
-            }
-
-            if (!valid) return@setOnClickListener
-
-            // 🔄 Show loader
-            loader.visibility = View.VISIBLE
-            signinButton.text = ""
-
-            // API endpoint
             val api = "https://kbenkamotho.alwaysdata.net/api/signin"
 
             val data = RequestParams()
-            data.put("email", emailTxt)
-            data.put("password", passTxt)
+            data.put("email", email.text.toString())
+            data.put("password", password.text.toString())
 
             val helper = ApiHelper(applicationContext)
 
-            // Simulate loading (optional but nice UX)
-            Handler(Looper.getMainLooper()).postDelayed({
-                loader.visibility = View.GONE
-                signinButton.text = "Sign In"
+            // ✅ ONLY LOGIN + REDIRECT ON SUCCESS
+            helper.post_login(api, data) { response ->
 
-                // Call API AFTER loader (or move this above if you want real-time)
-                helper.post_login(api, data)
+                if (response != null) {
 
-            }, 1500)
+                    val session = SessionManager(this)
+                    session.login()
+
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+
+                } else {
+                    // ❌ Do nothing → stay on login screen
+                }
+            }
         }
     }
 }

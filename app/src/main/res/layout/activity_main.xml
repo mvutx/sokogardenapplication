@@ -4,50 +4,101 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:orientation="vertical"
-    android:background="#52ACD5"
+    android:background="#EAF2FF"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="16dp"
     tools:context=".MainActivity">
 
+    <!-- App Title -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="❇️ SokoGarden ❇️"
-        android:fontFamily="cursive"
-        android:textSize="42sp"
-        android:background="@drawable/shape"
-        android:padding="12dp"
+        android:textSize="32sp"
+        android:textStyle="bold"
         android:textAlignment="center"
-        android:textStyle="bold|italic"
-        android:textColor="#F0E7EA"/>
-<!--    below is a linear layout that aligns contents horizontally-->
+        android:textColor="#FFFFFF"
+        android:background="#1E3A8A"
+        android:padding="14dp"
+        android:layout_marginBottom="20dp"/>
+
+    <!-- Buttons Section -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="👤 Signup"
-            android:textSize="25sp"
-            android:padding="10dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="8dp"
-            android:textColor="#FFEB3B"
-            android:backgroundTint="@color/black"
-            android:id="@+id/signupBtn"/>
+        android:orientation="horizontal"
+        android:gravity="center">
 
-        <Button
-            android:layout_width="wrap_content"
+        <!-- Signup Column -->
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text=" 👮🏽 Signin"
-            android:textSize="25sp"
-            android:padding="10dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="8dp"
-            android:textColor="#FFEB3B"
-            android:backgroundTint="@color/black"
-            android:id="@+id/signinBtn"/>
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginEnd="10dp">
+
+            <Button
+                android:id="@+id/signupBtn"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:text="👤 Signup"
+                android:textSize="16sp"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:backgroundTint="#3B82F6"/>
+
+
+        </LinearLayout>
+
+        <!-- Signin Column -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/signinBtn"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:text="🔐 Signin"
+                android:textSize="16sp"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:backgroundTint="#1E3A8A"/>
+
+
+        </LinearLayout>
+
     </LinearLayout>
+
+    <!-- Progress -->
+    <ProgressBar
+        android:id="@+id/progressbar"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:layout_marginTop="15dp"/>
+
+    <!-- Product List -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="8dp"
+        app:cardBackgroundColor="#FFFFFF"
+        android:layout_marginTop="15dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            tools:listitem="@layout/single_item"/>
+
+    </androidx.cardview.widget.CardView>
 
 </LinearLayout>

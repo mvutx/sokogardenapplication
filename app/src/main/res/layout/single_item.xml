@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+<!--    below is a cardveiw-->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        android:layout_margin="10dp"
+        app:cardElevation="15dp"
+        app:cardCornerRadius="12dp">
+
+<!--        below is another linearlayout that dictates how the contentswill be alignedinside of the cardview-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="8dp"
+            android:background="#2f7576">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/product_name"
+                android:text="Product Name"
+                android:textSize="25sp"
+                style="bold"
+                android:textAlignment="center"
+                android:textColor="#827"
+                android:fontFamily="sans-serif-condensed-medium"/>
+
+<!--            below is  our product_image-->
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:id="@+id/product_photo"
+                android:src="@mipmap/ic_launcher"
+                android:scaleType="centerCrop"
+                android:layout_marginTop="3dp"/>
+<!--            below is product_cost-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/product_cost"
+                android:text="kes 500"
+                android:layout_marginTop="5dp"
+                android:textStyle="bold"
+                android:textSize="25dp"
+                android:textColor="#0f1945"
+                android:layout_marginLeft="10dp"/>
+
+<!--            below is the productdescription-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/product_description"
+                android:text="product description"
+                android:textSize="20sp"
+                android:textColor="#000"
+                android:layout_marginLeft="10dp"
+                style="Italic"
+                android:layout_marginTop="3dp"/>
+
+<!--            below s the purchase button -->
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnPurchase"
+                android:text="purchase now"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="70dp"
+                android:layout_marginRight="70dp"
+                android:backgroundTint="#287"
+                android:textSize="18dp"
+                android:textColor="#fff" />
+
+
+
+
+
+        </LinearLayout>
+
+
+
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>
