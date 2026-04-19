@@ -111,5 +111,13 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
+
+//        find the about button by use of its id and have the intent
+        val aboutButton = findViewById<Button>(R.id.aboutbtn)
+//        below s the intent to the about page
+        aboutButton.setOnClickListener {
+            val intent = Intent(applicationContext, About::class.java)
+            startActivity(intent)
+        }
     }
 }
