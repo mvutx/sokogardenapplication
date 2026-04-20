@@ -1,129 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
-    android:orientation="vertical"
-    android:background="#EAF2FF"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    android:paddingBottom="60dp"
-    tools:context=".MainActivity">
+    android:orientation="vertical"
+    android:background="#FFFFFF">
 
-    <!-- App Title -->
-    <TextView
+    <!-- ================= INSTAGRAM STYLE HEADER ================= -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="❇️ SokoGarden ❇️"
-        android:textSize="32sp"
-        android:textStyle="bold"
-        android:textAlignment="center"
-        android:textColor="#FFFFFF"
-        android:background="#1E3A8A"
-        android:padding="14dp"
-        android:layout_marginBottom="10dp"/>
-
-    <!-- 👋 Welcome User -->
-    <TextView
-        android:id="@+id/welcomeUser"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Welcome 👋"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:textAlignment="center"
-        android:textColor="#1E3A8A"
-        android:layout_marginBottom="10dp"/>
-
-    <!-- 📝 INFO TEXT (NEW ADDED) -->
-    <TextView
-        android:id="@+id/profileInfoText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="You can update your information below. Each section has its own save button."
-        android:textSize="14sp"
-        android:textColor="#374151"
+        android:orientation="vertical"
         android:gravity="center"
-        android:layout_marginBottom="15dp"/>
+        android:paddingTop="30dp"
+        android:paddingBottom="20dp">
 
-    <!-- ================= USERNAME ================= -->
-    <EditText
-        android:id="@+id/usernameEdit"
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:hint="Username"
-        android:background="#FFFFFF"
-        android:padding="10dp"
-        android:layout_marginBottom="5dp"/>
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/profileImage"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@android:drawable/ic_menu_camera"
+            android:scaleType="centerCrop"
+            android:layout_marginBottom="12dp"
+            app:shapeAppearanceOverlay="@style/CircleImage"/>
 
-    <Button
-        android:id="@+id/saveUsernameBtn"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:text="💾 Save Username"
-        android:backgroundTint="#1E3A8A"
-        android:textColor="#FFFFFF"
-        android:layout_marginBottom="12dp"/>
+        <!-- Display Username -->
+        <TextView
+            android:id="@+id/displayUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="john_doe"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:layout_marginBottom="4dp"/>
 
-    <!-- ================= EMAIL ================= -->
-    <EditText
-        android:id="@+id/emailEdit"
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:hint="Email"
-        android:background="#FFFFFF"
-        android:padding="10dp"
-        android:layout_marginBottom="5dp"/>
+        <!-- Display Email -->
+        <TextView
+            android:id="@+id/displayEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="johndoe@email.com"
+            android:textSize="14sp"
+            android:textColor="#6B7280"/>
 
-    <Button
-        android:id="@+id/saveEmailBtn"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:text="💾 Save Email"
-        android:backgroundTint="#10B981"
-        android:textColor="#FFFFFF"
-        android:layout_marginBottom="12dp"/>
+    </LinearLayout>
 
-    <!-- ================= PASSWORD ================= -->
-    <EditText
-        android:id="@+id/passwordEdit"
+    <!-- Divider -->
+    <View
         android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:hint="Password"
-        android:inputType="textPassword"
-        android:background="#FFFFFF"
-        android:padding="10dp"
-        android:layout_marginBottom="5dp"/>
+        android:layout_height="1dp"
+        android:background="#E5E7EB"/>
 
-    <Button
-        android:id="@+id/savePasswordBtn"
+    <!-- ================= SCROLLABLE CONTENT ================= -->
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:text="🔐 Save Password"
-        android:backgroundTint="#EF4444"
-        android:textColor="#FFFFFF"
-        android:layout_marginBottom="12dp"/>
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-    <!-- ================= PHONE ================= -->
-    <EditText
-        android:id="@+id/phoneEdit"
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:hint="Phone Number"
-        android:inputType="phone"
-        android:background="#FFFFFF"
-        android:padding="10dp"
-        android:layout_marginBottom="5dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
 
-    <Button
-        android:id="@+id/savePhoneBtn"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:text="📱 Save Phone"
-        android:backgroundTint="#F59E0B"
-        android:textColor="#FFFFFF"
-        android:layout_marginBottom="15dp"/>
+            <!-- USERNAME -->
+            <EditText
+                android:id="@+id/usernameEdit"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Edit Username"
+                android:background="#F3F4F6"
+                android:padding="12dp"
+                android:layout_marginBottom="8dp"/>
+
+            <Button
+                android:id="@+id/saveUsernameBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Update Username"
+                android:layout_marginBottom="16dp"/>
+
+            <!-- EMAIL -->
+            <EditText
+                android:id="@+id/emailEdit"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Edit Email"
+                android:inputType="textEmailAddress"
+                android:background="#F3F4F6"
+                android:padding="12dp"
+                android:layout_marginBottom="8dp"/>
+
+            <Button
+                android:id="@+id/saveEmailBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Update Email"
+                android:layout_marginBottom="16dp"/>
+
+            <!-- PASSWORD -->
+            <EditText
+                android:id="@+id/passwordEdit"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="New Password"
+                android:inputType="textPassword"
+                android:background="#F3F4F6"
+                android:padding="12dp"
+                android:layout_marginBottom="8dp"/>
+
+            <Button
+                android:id="@+id/savePasswordBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Update Password"
+                android:layout_marginBottom="16dp"/>
+
+            <!-- PHONE -->
+            <EditText
+                android:id="@+id/phoneEdit"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Edit Phone"
+                android:inputType="phone"
+                android:background="#F3F4F6"
+                android:padding="12dp"
+                android:layout_marginBottom="8dp"/>
+
+            <Button
+                android:id="@+id/savePhoneBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Update Phone"/>
+
+        </LinearLayout>
+    </ScrollView>
 
     <!-- ================= BOTTOM NAV ================= -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -131,8 +144,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#FFFFFF"
-        app:itemIconTint="#1E3A8A"
-        app:itemTextColor="#1E3A8A"
         app:menu="@menu/bottom_nav_menu"/>
 
 </LinearLayout>

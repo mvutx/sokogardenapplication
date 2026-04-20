@@ -2,17 +2,22 @@ package com.example.sokogarden
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlin.jvm.java
 
 class ProfileActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
+
+        // ================= VIEW REFERENCES =================
+        val profileImage = findViewById<ImageView>(R.id.profileImage)
+
+        val displayUsername = findViewById<TextView>(R.id.displayUsername)
+        val displayEmail = findViewById<TextView>(R.id.displayEmail)
 
         val usernameEdit = findViewById<EditText>(R.id.usernameEdit)
         val emailEdit = findViewById<EditText>(R.id.emailEdit)
@@ -26,47 +31,56 @@ class ProfileActivity : AppCompatActivity() {
 
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNav)
 
+        // ================= SHARED PREFS =================
         val prefs = getSharedPreferences("user_session", MODE_PRIVATE)
-
-        // 🔐 Load existing data
-        usernameEdit.setText(prefs.getString("username", ""))
-        emailEdit.setText(prefs.getString("email", ""))
-        passwordEdit.setText(prefs.getString("password", ""))
-        phoneEdit.setText(prefs.getString("phone", ""))
-
         val editor = prefs.edit()
 
-        // ================= SAVE USERNAME =================
+        // ================= LOAD DATA =================
+        val username = prefs.getString("username", "john_doe")
+        val email = prefs.getString("email", "johndoe@email.com")
+        val password = prefs.getString("password", "")
+        val phone = prefs.getString("phone", "")
+
+        usernameEdit.setText(username)
+        emailEdit.setText(email)
+        passwordEdit.setText(password)
+        phoneEdit.setText(phone)
+
+        displayUsername.text = username
+        displayEmail.text = email
+
+        // ================= SAVE ACTIONS =================
         saveUsernameBtn.setOnClickListener {
-            editor.putString("username", usernameEdit.text.toString())
-            editor.apply()
+            val newUsername = usernameEdit.text.toString()
+            editor.putString("username", newUsername).apply()
+            displayUsername.text = newUsername
             Toast.makeText(this, "Username Updated ✅", Toast.LENGTH_SHORT).show()
         }
 
-        // ================= SAVE EMAIL =================
         saveEmailBtn.setOnClickListener {
-            editor.putString("email", emailEdit.text.toString())
-            editor.apply()
+            val newEmail = emailEdit.text.toString()
+            editor.putString("email", newEmail).apply()
+            displayEmail.text = newEmail
             Toast.makeText(this, "Email Updated ✅", Toast.LENGTH_SHORT).show()
         }
 
-        // ================= SAVE PASSWORD =================
         savePasswordBtn.setOnClickListener {
-            editor.putString("password", passwordEdit.text.toString())
-            editor.apply()
+            editor.putString("password", passwordEdit.text.toString()).apply()
             Toast.makeText(this, "Password Updated ✅", Toast.LENGTH_SHORT).show()
         }
 
-        // ================= SAVE PHONE =================
         savePhoneBtn.setOnClickListener {
-            editor.putString("phone", phoneEdit.text.toString())
-            editor.apply()
+            editor.putString("phone", phoneEdit.text.toString()).apply()
             Toast.makeText(this, "Phone Updated ✅", Toast.LENGTH_SHORT).show()
         }
 
-        // ================= BOTTOM NAVIGATION =================
-        bottomNav.setOnItemSelectedListener { item ->
+        // ================= PROFILE IMAGE CLICK =================
+        profileImage.setOnClickListener {
+            Toast.makeText(this, "Change profile photo (not implemented)", Toast.LENGTH_SHORT).show()
+        }
 
+        // ================= BOTTOM NAVIGATION (UPDATED) =================
+        bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
 
                 R.id.nav_home -> {
@@ -75,14 +89,8 @@ class ProfileActivity : AppCompatActivity() {
                     true
                 }
 
-                R.id.nav_profile -> {
-                    Toast.makeText(this, "Already in Profile", Toast.LENGTH_SHORT).show()
-                    true
-                }
-
-                R.id.nav_logout -> {
-                    prefs.edit().clear().apply()
-                    startActivity(Intent(this, Signin::class.java))
+                R.id.nav_settings -> {
+                    startActivity(Intent(this, SessionManager::class.java))
                     finish()
                     true
                 }

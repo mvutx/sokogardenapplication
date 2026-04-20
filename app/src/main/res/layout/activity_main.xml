@@ -85,17 +85,7 @@
                 android:textColor="#FFFFFF"
                 android:backgroundTint="#1E3A8A"/>
 
-            <Button
-                android:id="@+id/aboutbtn"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_marginLeft="4dp"
-                android:layout_weight="1"
-                android:text="About"
-                android:textSize="15sp"
-                android:textAllCaps="false"
-                android:textColor="#FFFFFF"
-                android:backgroundTint="#1E3A8A"/>
+
         </LinearLayout>
 
     </LinearLayout>

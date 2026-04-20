@@ -2,7 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- ================= ADDED PERMISSIONS FOR PROFILE IMAGE ================= -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
 
     <application
         android:allowBackup="true"
@@ -13,30 +17,36 @@
         android:roundIcon="@drawable/sokogarden"
         android:supportsRtl="true"
         android:theme="@style/Theme.Sokogarden">
+
         <activity
             android:name=".About"
             android:exported="false" />
+
         <activity
             android:name=".PaymentActivity"
             android:exported="false" />
+
         <activity
             android:name=".ProfileActivity"
             android:exported="false" />
+
         <activity
             android:name=".Signin"
             android:exported="false" />
+
         <activity
             android:name=".Signup"
             android:exported="false" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>
